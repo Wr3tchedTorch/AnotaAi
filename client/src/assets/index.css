@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+body {
+  overflow-x: hidden;
+  background-color: #f3f6fb;
+}
+
+body,
+.navbar {
+  margin-bottom: 100px;
+}
+
+.navLink {
+  text-decoration: none;
+  color: black;
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+.active-navlink {
+  color: #b4c6ff;
+  text-decoration: underline;
+}
+
+.navbar-brand {
+  font-family: "Lobster", cursive;
+  font-size: 30px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.background-floating-img {
+  width: 350px;
+  height: 350px;
+  transform: rotate(8deg);
+  background-image: url("Stuck at Home - To Do List.png");
+  background-size: cover;
+}
+
+@media screen and (min-width: 1628px) {
+  body {
+    width: 70%;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .background-floating-img {
+    margin-top: 80px;
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .navbar-collapse {
+    display: flex;
+    justify-content: end;
+  }
+}

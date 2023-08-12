@@ -1,0 +1,11 @@
+.second-section {
+    /* position: absolute;
+    left: 0;
+    right: 0; */
+    width: 100%;
+    height: 300px;
+    margin-top: 80px;
+    background-image: url("../assets/layered-steps-haikei.svg");
+    /* background-repeat: no-repeat; */
+    /* background-size: cover; */
+}
