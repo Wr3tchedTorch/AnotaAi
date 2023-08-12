@@ -41,7 +41,7 @@ const Home = () => {
         <motion.div
           initial={{ y: 0 }}
           animate={{ y: [50, 0, 50], rotate: [10] }}
-          transition={{ duration: 5, repeat: Infinity }}
+          transition={{ duration: 8, repeat: Infinity }}
           className="background-floating-img"
         ></motion.div>
       </div>
