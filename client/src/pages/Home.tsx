@@ -43,6 +43,17 @@ const Home = () => {
         ></motion.div>
       </div>
       <div className="second-section"></div>
+      <form
+        className="d-flex w-75 m-auto mb-5"
+        role="search"        
+      >
+        <input
+          className="form-control me-2 rounded-pill border border-dark-subtle"
+          type="search"
+          placeholder="Pesquisar Nota"
+          aria-label="Pesquisar Nota"
+        />
+      </form>
     </motion.div>
   );
 };
