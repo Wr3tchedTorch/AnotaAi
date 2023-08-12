@@ -66,6 +66,24 @@ const Home = () => {
         </button>
       </form>
 
+      <div className="notes mb-5">
+        <div className="note alert alert-light border border-dark-subtle w-75 m-auto">
+          <div className="heading d-flex justify-content-between mb-2" style={{alignItems: "center"}}>
+            <h4>Titulo da nota</h4>
+            <button className="btn" style={{fontSize: 22}}>
+              X
+            </button>
+          </div>
+          <p style={{fontSize: 16}}>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus
+            temporibus autem accusamus deleniti officia mollitia reprehenderit
+            ea, omnis tempora itaque deserunt expedita pariatur eum, error
+            quaerat quae corporis ut accusantium!
+          </p>
+          <span className="date w-100 d-flex justify-content-end px-4">xx/xx/xxxx</span>
+        </div>
+      </div>
+
       <div
         className="modal fade"
         id="newNoteModal"
@@ -76,7 +94,7 @@ const Home = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="newNoteModalLabel">
-                Nova Anotação
+                Criar nova anotação
               </h1>
               <button
                 type="button"
@@ -88,32 +106,21 @@ const Home = () => {
             <div className="modal-body">
               <form>
                 <div className="mb-3">
-                  <label className="form-label">Email address</label>
+                  <label className="form-label">Titulo</label>
                   <input
                     type="email"
                     className="form-control border border-dark-subtle"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                   />
-                  <div id="emailHelp" className="form-text">
-                    We'll never share your email with anyone else.
-                  </div>
                 </div>
                 <div className="mb-3">
-                  <label className="form-label">Password</label>
-                  <input
-                    type="password"
-                    className="form-control border-dark-subtle"
-                    id="exampleInputPassword1"
-                  />
-                </div>
-                <div className="mb-3 form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input border-dark-subtle"
-                    id="exampleCheck1"
-                  />
-                  <label className="form-check-label">Check me out</label>
+                  <label className="form-label">Descrição</label>
+                  <textarea
+                    className="form-control border border-dark-subtle"
+                    id="exampleFormControlTextarea1"
+                    rows={3}
+                  ></textarea>
                 </div>
               </form>
             </div>
