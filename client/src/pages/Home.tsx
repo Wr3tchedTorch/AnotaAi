@@ -68,19 +68,24 @@ const Home = () => {
 
       <div className="notes mb-5">
         <div className="note alert alert-light border border-dark-subtle w-75 m-auto">
-          <div className="heading d-flex justify-content-between mb-2" style={{alignItems: "center"}}>
+          <div
+            className="heading d-flex justify-content-between mb-2"
+            style={{ alignItems: "center" }}
+          >
             <h4>Titulo da nota</h4>
-            <button className="btn" style={{fontSize: 22}}>
+            <button className="btn" style={{ fontSize: 22 }}>
               X
             </button>
           </div>
-          <p style={{fontSize: 16}}>
+          <p style={{ fontSize: 16 }}>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus
             temporibus autem accusamus deleniti officia mollitia reprehenderit
             ea, omnis tempora itaque deserunt expedita pariatur eum, error
             quaerat quae corporis ut accusantium!
           </p>
-          <span className="date w-100 d-flex justify-content-end px-4">xx/xx/xxxx</span>
+          <span className="date w-100 d-flex justify-content-end px-4">
+            xx/xx/xxxx
+          </span>
         </div>
       </div>
 
@@ -112,6 +117,7 @@ const Home = () => {
                     className="form-control border border-dark-subtle"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
+                    maxLength={25}
                   />
                 </div>
                 <div className="mb-3">
@@ -120,6 +126,7 @@ const Home = () => {
                     className="form-control border border-dark-subtle"
                     id="exampleFormControlTextarea1"
                     rows={3}
+                    maxLength={200}
                   ></textarea>
                 </div>
               </form>
