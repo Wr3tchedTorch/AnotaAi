@@ -1,28 +1,41 @@
 const express = require("express");
 const router = express.Router();
-const connection = require("../database/mysql");
+const Database = require("../database/mysql");
+
+const db = new Database("notes");
+
+router.route("/").post((req, res) => {
+  const { title, desc } = req.body;
+  db.insert(`'${title}', '${desc}'`)
+    .then((rows) => {
+      res.send({ db: rows });
+    })
+    .catch((err) => {
+      throw err;
+    });
+});
 
 router
-  .route("/")
-  .post((req, res) => {
-    const { title, desc } = req.body;
-    res.send({ title: title, desc: desc });
-
-    connection.query(
-      `INSERT INTO notes(title, description) VALUES ('${title}', '${desc}')`,
-      (err, rows, fields) => {
-        if (err) throw err;
-
-        console.log(rows);
-      }
-    );
+  .route("/:id")
+  .get((req, res) => {
+    const { id } = req.params;
+    const where = id == "all" ? "" : `id = ${id}`;
+    db.select(where)
+      .then((rows) => {
+        res.send({ db: rows });
+      })
+      .catch((err) => {
+        throw err;
+      });
   })
   .delete((req, res) => {
-    res.send("Delete Note");
+    const { id } = req.params;
+    db.delete(`id = ${id}`)
+      .then((rows) => {
+        res.send({ db: rows });
+      })
+      .catch((err) => {
+        throw err;
+      });
   });
-
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
-  res.send({ params: id });
-});
 module.exports = router;
