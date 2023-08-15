@@ -1,12 +1,31 @@
 import "../assets/home.css";
 import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios, { AxiosResponse } from "axios";
 
 // Aqui você pode organizar todas as suas anotações.
 
 const Home = () => {
   const [animateModal, setAnimateModal] = useState(0);
+  const [dbRows, setDbRows] = useState<AxiosResponse | null | void>(null);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/note/all")
+      .then(function (response) {
+        // handle success
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+        console.log("erro");
+      })
+      .finally(function () {
+        // always executed
+      });
+  }, []);
 
   return (
     <motion.div

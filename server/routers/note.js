@@ -22,7 +22,7 @@ router
     const where = id == "all" ? "" : `id = ${id}`;
     db.select(where)
       .then((rows) => {
-        res.send({ db: rows });
+        res.status(200).send({ db: rows });
       })
       .catch((err) => {
         throw err;
