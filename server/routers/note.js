@@ -5,10 +5,10 @@ const Database = require("../database/mysql");
 const db = new Database("notes");
 
 router.route("/").post((req, res) => {
-  const { title, desc } = req.body;
-  db.insert(`'${title}', '${desc}'`)
+  const { title, desc, date } = req.body;
+  db.insert(`'${title}', '${desc}', '${date}'`)
     .then((rows) => {
-      res.send({ db: rows });
+      res.send({ message: "Dados salvos com sucesso no banco de dados!" });
     })
     .catch((err) => {
       throw err;

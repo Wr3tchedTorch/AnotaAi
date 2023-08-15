@@ -8,14 +8,19 @@ import axios, { AxiosResponse } from "axios";
 
 const Home = () => {
   const [animateModal, setAnimateModal] = useState(0);
-  const [dbRows, setDbRows] = useState<AxiosResponse | null | void>(null);
+  const [dbRows, setDbRows] = useState<any[]>([]);
+  const [titleInput, setTitleInput] = useState("");
+  const [descInput, setDescInput] = useState("");
+  const [updateNotes, setUpdateNotes] = useState(0);
+
+  AOS.init();
 
   useEffect(() => {
     axios
       .get("http://localhost:3000/note/all")
       .then(function (response) {
         // handle success
-        console.log(response);
+        setDbRows(response.data.db);
       })
       .catch(function (error) {
         // handle error
@@ -25,7 +30,33 @@ const Home = () => {
       .finally(function () {
         // always executed
       });
-  }, []);
+  }, [updateNotes]);
+
+  function postNote(e: any) {
+    e.preventDefault();
+    let date = new Date();
+    let currentDate = date.toISOString().split("T")[0];
+    axios
+      .post("http://localhost:3000/note", {
+        title: titleInput,
+        desc: descInput,
+        date: currentDate,
+      })
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        setUpdateNotes(updateNotes + 1);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+        console.log("erro");
+      })
+      .finally(function () {
+        console.log(dbRows);
+        // always executed
+      });
+  }
 
   return (
     <motion.div
@@ -86,26 +117,27 @@ const Home = () => {
       </form>
 
       <div className="notes mb-5">
-        <div className="note alert alert-light border border-dark-subtle w-75 m-auto">
+        {dbRows.map((dbrow: any) => (
           <div
-            className="heading d-flex justify-content-between mb-2"
-            style={{ alignItems: "center" }}
+            className="note alert alert-light border border-dark-subtle w-75 m-auto mb-3"
+            key={dbrow.id}
+            data-aos="zoom-in-up"
           >
-            <h4>Titulo da nota</h4>
-            <button className="btn" style={{ fontSize: 22 }}>
-              X
-            </button>
+            <div
+              className="heading d-flex justify-content-between mb-2"
+              style={{ alignItems: "center" }}
+            >
+              <h4>{dbrow.title}</h4>
+              <button className="btn" style={{ fontSize: 22 }}>
+                X
+              </button>
+            </div>
+            <p style={{ fontSize: 16 }}>{dbrow.description}</p>
+            <span className="date w-100 d-flex justify-content-end px-4">
+              {dbrow.date.slice(0, 10).replace(new RegExp("-", "g"), "/")}
+            </span>
           </div>
-          <p style={{ fontSize: 16 }}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus
-            temporibus autem accusamus deleniti officia mollitia reprehenderit
-            ea, omnis tempora itaque deserunt expedita pariatur eum, error
-            quaerat quae corporis ut accusantium!
-          </p>
-          <span className="date w-100 d-flex justify-content-end px-4">
-            xx/xx/xxxx
-          </span>
-        </div>
+        ))}
       </div>
 
       <div
@@ -137,6 +169,9 @@ const Home = () => {
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     maxLength={25}
+                    onChange={(e) => {
+                      setTitleInput(e.target.value);
+                    }}
                   />
                 </div>
                 <div className="mb-3">
@@ -146,6 +181,9 @@ const Home = () => {
                     id="exampleFormControlTextarea1"
                     rows={3}
                     maxLength={200}
+                    onChange={(e) => {
+                      setDescInput(e.target.value);
+                    }}
                   ></textarea>
                 </div>
               </form>
@@ -158,7 +196,11 @@ const Home = () => {
               >
                 Cancelar
               </button>
-              <button type="button" className="btn btn-primary">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={postNote}
+              >
                 Salvar
               </button>
             </div>
