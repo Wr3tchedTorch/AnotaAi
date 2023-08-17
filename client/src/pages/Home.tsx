@@ -12,10 +12,10 @@ const Home = () => {
   const [titleInput, setTitleInput] = useState("");
   const [descInput, setDescInput] = useState("");
   const [updateNotes, setUpdateNotes] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
 
-  const toggleVisibility = (id: any) => {
-    setIsVisible(!isVisible);
+  const toggleVisibility = (id: any, e: any) => {
+    const noteToDelete = document.getElementById(`note${id}`);
+    noteToDelete?.classList.add("isInvisible");
     handleDeleteNote(id);
   };
 
@@ -139,8 +139,9 @@ const Home = () => {
       <div className="notes mb-5">
         {dbRows.map((dbrow: any) => (
           <motion.div
-            className="note alert alert-light border border-dark-subtle w-75 m-auto mb-3"
+            className="note alert alert-light border border-dark-subtle m-auto mb-3"
             key={dbrow.id}
+            id={`note${dbrow.id}`}
             data-aos="zoom-in-up"
             exit={{ x: -100, opacity: 0 }}
           >
@@ -152,12 +153,12 @@ const Home = () => {
               <button
                 className="btn"
                 style={{ fontSize: 22 }}
-                onClick={() => toggleVisibility(dbrow.id)}
+                onClick={(e) => toggleVisibility(dbrow.id, e)}
               >
                 X
               </button>
             </div>
-            <p style={{ fontSize: 16 }}>{dbrow.description}</p>
+            <p>{dbrow.description}</p>
             <span className="date w-100 d-flex justify-content-end px-4">
               {dbrow.date.slice(0, 10).replace(new RegExp("-", "g"), "/")}
             </span>
@@ -193,7 +194,7 @@ const Home = () => {
                     className="form-control border border-dark-subtle"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
-                    maxLength={25}
+                    maxLength={40}
                     onChange={(e) => {
                       setTitleInput(e.target.value);
                     }}
@@ -205,7 +206,7 @@ const Home = () => {
                     className="form-control border border-dark-subtle"
                     id="exampleFormControlTextarea1"
                     rows={3}
-                    maxLength={200}
+                    maxLength={450}
                     onChange={(e) => {
                       setDescInput(e.target.value);
                     }}
@@ -224,6 +225,7 @@ const Home = () => {
               <button
                 type="button"
                 className="btn btn-primary"
+                data-bs-dismiss="modal"
                 onClick={postNote}
               >
                 Salvar
