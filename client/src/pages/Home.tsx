@@ -1,6 +1,6 @@
 import "../assets/home.css";
 import { TypeAnimation } from "react-type-animation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import axios, { AxiosResponse } from "axios";
 
@@ -12,6 +12,12 @@ const Home = () => {
   const [titleInput, setTitleInput] = useState("");
   const [descInput, setDescInput] = useState("");
   const [updateNotes, setUpdateNotes] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+
+  const toggleVisibility = (id: any) => {
+    setIsVisible(!isVisible);
+    handleDeleteNote(id);
+  };
 
   AOS.init();
 
@@ -55,6 +61,20 @@ const Home = () => {
       .finally(function () {
         console.log(dbRows);
         // always executed
+      });
+  }
+
+  function handleDeleteNote(id: any) {
+    console.log("Id: " + id);
+
+    axios
+      .delete(`http://localhost:3000/note/${id}`)
+      .then((req) => {
+        console.log(req);
+        setUpdateNotes(updateNotes + 1);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -118,17 +138,22 @@ const Home = () => {
 
       <div className="notes mb-5">
         {dbRows.map((dbrow: any) => (
-          <div
+          <motion.div
             className="note alert alert-light border border-dark-subtle w-75 m-auto mb-3"
             key={dbrow.id}
             data-aos="zoom-in-up"
+            exit={{ x: -100, opacity: 0 }}
           >
             <div
               className="heading d-flex justify-content-between mb-2"
               style={{ alignItems: "center" }}
             >
               <h4>{dbrow.title}</h4>
-              <button className="btn" style={{ fontSize: 22 }}>
+              <button
+                className="btn"
+                style={{ fontSize: 22 }}
+                onClick={() => toggleVisibility(dbrow.id)}
+              >
                 X
               </button>
             </div>
@@ -136,7 +161,7 @@ const Home = () => {
             <span className="date w-100 d-flex justify-content-end px-4">
               {dbrow.date.slice(0, 10).replace(new RegExp("-", "g"), "/")}
             </span>
-          </div>
+          </motion.div>
         ))}
       </div>
 

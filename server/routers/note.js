@@ -32,7 +32,10 @@ router
     const { id } = req.params;
     db.delete(`id = ${id}`)
       .then((rows) => {
-        res.send({ db: rows });
+        res.send({
+          message: "Elemento deletado com sucesso do banco de dados!",
+          db: rows,
+        });
       })
       .catch((err) => {
         throw err;
