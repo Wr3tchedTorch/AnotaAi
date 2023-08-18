@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const Navbar = ({ pages }: { pages: Array<String> }) => {
@@ -24,31 +23,11 @@ const Navbar = ({ pages }: { pages: Array<String> }) => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div
-            className="collapse navbar-collapse"
-            id="navbarNav"
-          >
+          <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item m-1 mx-2">
-                <NavLink
-                  to={"/"}
-                  className={
-                    "navLink" +
-                    (location.pathname == "/" ? " active-navlink" : "")
-                  }
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item m-1 mx-2">
-                <NavLink
-                  to={"/about"}
-                  className={
-                    "navLink" +
-                    (location.pathname == "/about" ? " active-navlink" : "")
-                  }
-                >
-                  About
+                <NavLink to={"/"} className="navLink">
+                  Pagina Inicial
                 </NavLink>
               </li>
             </ul>

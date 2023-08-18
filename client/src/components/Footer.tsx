@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="w-50" id="footer-div">
         <h5>Esse site foi desenvolvido por Eric Moura</h5>
         <hr />
-        <p style={{textAlign: "justify"}}>
+        <p style={{ textAlign: "justify" }}>
           Esse site foi criado com o intuito de desenvolver minhas habilidades e
           expandir meu conhecimento em ferramentas como{" "}
           <a href="https://react.dev">ReactJS</a> e
@@ -27,13 +27,13 @@ const Footer = () => {
         <h5>Redes Sociais</h5>
         <hr />
         <li>
-          <a href="">Instagram</a>
+          <a href="https://www.instagram.com/ericericeri_/">Instagram</a>
         </li>
         <li>
-          <a href="">Github</a>
+          <a href="https://github.com/Wr3tchedTorch?tab=repositories">Github</a>
         </li>
         <li>
-          <a href="">Linkedin</a>
+          <p>Linkedin</p>
         </li>
       </ul>
     </footer>

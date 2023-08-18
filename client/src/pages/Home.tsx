@@ -1,5 +1,5 @@
 import "../assets/home.css";
-import { TypeAnimation } from "react-type-animation";
+// import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { getNotes, postNote } from "../api/axios";
@@ -8,6 +8,7 @@ import Modal from "../components/Modal";
 import Notes from "../components/Notes";
 import Footer from "../components/Footer";
 import RenderPagination from "../components/RenderPagination";
+import Typewriter from "typewriter-effect";
 
 // Aqui você pode organizar todas as suas anotações.
 
@@ -79,24 +80,27 @@ const Home = () => {
       <div className="container flex-container w-100 px-5">
         <div className="floating-text">
           <h5 style={{ marginTop: 100, marginBottom: 20 }}>Seja bem vindo!</h5>
-          <h4>
-            <TypeAnimation
-              sequence={[
-                // Same substring at the start will only be typed out once, initially
-                "Aqui você pode organizar todas as suas anotações",
-                3000, // wait 1s before replacing "Mice" with "Hamsters"
-                "Aqui você pode organizar todas as suas ideias",
-                3000,
-              ]}
-              wrapper="span"
-              speed={60}
-              style={{
-                fontSize: "30px",
-                display: "inline-block",
-                maxWidth: 600,
-              }}
-              repeat={Infinity}
-            />
+          <h4 className="d-flex">
+            <div className="mx-1">
+              <Typewriter
+                options={{
+                  loop: true,
+                  autoStart: true,
+                }}
+                onInit={(typewriter) => {
+                  typewriter
+                    .changeDelay(55)
+                    .changeDeleteSpeed(55)
+                    .typeString("Aqui você pode organizar todas as <br />suas ")
+                    .typeString("anotações")
+                    .pauseFor(1200)
+                    .deleteChars(9)
+                    .typeString("ideias")
+                    .pauseFor(2000)
+                    .start();
+                }}
+              />
+            </div>
           </h4>
         </div>
         <motion.div

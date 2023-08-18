@@ -6,7 +6,6 @@ type PaginationProps = {
   paginate: any;
   currentPage: any;
   maxNavigatorPagesNum: any;
-  windowWidth: any;
 };
 
 const Pagination = ({
@@ -15,7 +14,6 @@ const Pagination = ({
   paginate,
   currentPage,
   maxNavigatorPagesNum,
-  windowWidth,
 }: PaginationProps) => {
   const pageNumbers = [];
   const totalPages = [];

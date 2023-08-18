@@ -34,7 +34,6 @@ const RenderPagination = ({
         paginate={paginate}
         currentPage={currentPage}
         maxNavigatorPagesNum={maxNavigatorPagesNum}
-        windowWidth={windowWidth}
       />
     </>
   );

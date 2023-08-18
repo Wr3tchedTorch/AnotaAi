@@ -28,24 +28,24 @@ const SearchBar = ({
   }
 
   return (
-    <form className="d-flex w-75 m-auto mb-5" role="search" id="navbar">
+    <form className="d-flex flex-wrap w-75 m-auto mb-5" role="search" id="navbar">
       <input
         className="form-control me-2 rounded-pill border border-dark-subtle nosubmit"
         type="search"
         placeholder="Pesquisar Nota"
         aria-label="Pesquisar Nota"
         onChange={handleSearchChange}
-      />
+      />          
       <button
         type="button"
-        className="btn btn-primary rounded "
+        className="btn btn-primary rounded mt-4"
         data-bs-toggle="modal"
         data-bs-target="#newNoteModal"
         onClick={() => {
-          setAnimateModal(animateModal == 0 ? 1 : 0);
+        setAnimateModal(animateModal == 0 ? 1 : 0);
         }}
       >
-        +
+        Adicionar Anotação
       </button>
     </form>
   );
