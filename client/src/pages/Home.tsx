@@ -2,13 +2,14 @@ import "../assets/home.css";
 import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { getNotes, postNote, deleteNote } from "../api/axios";
-import { toggleVisibility } from "../animation/visibility";
+import { getNotes, postNote } from "../api/axios";
+import SearchBar from "../components/SearchBar";
+import Modal from "../components/Modal";
+import Notes from "../components/Notes";
 
 // Aqui você pode organizar todas as suas anotações.
 
 const Home = () => {
-  const [animateModal, setAnimateModal] = useState(0);
   const [titleInput, setTitleInput] = useState("");
   const [descInput, setDescInput] = useState("");
   const [updateNotes, setUpdateNotes] = useState(0);
@@ -18,17 +19,22 @@ const Home = () => {
   AOS.init();
 
   useEffect(() => {
-    getNotes().then((json) => {
-      setNotes(json);
-    });
+    getNotes()
+      .then((json) => {
+        setNotes(json);
+        return json;
+      })
+      .then((json) => {
+        setSearchResults(json);
+      });
   }, [updateNotes]);
 
   function handlePostNote(e: any) {
     let descHTML = document.getElementById(
-      "modalInputDesc1"
+      "newNoteModalInput"
     ) as HTMLInputElement;
     let titleHTML = document.getElementById(
-      "modalInputTitle1"
+      "newNoteModalTextarea"
     ) as HTMLInputElement;
 
     descHTML.value = "";
@@ -45,14 +51,6 @@ const Home = () => {
     setTimeout(() => {
       setUpdateNotes(updateNotes + 1);
     }, 100);
-  }
-
-  function handleDeleteNote(id: any) {
-    toggleVisibility(id);
-    setTimeout(() => {
-      deleteNote(id);
-      setUpdateNotes(updateNotes + 1);
-    }, 300);
   }
 
   return (
@@ -93,124 +91,27 @@ const Home = () => {
         ></motion.div>
       </div>
       <div className="second-section"></div>
-      <form className="d-flex w-75 m-auto mb-5" role="search">
-        <input
-          className="form-control me-2 rounded-pill border border-dark-subtle nosubmit"
-          type="search"
-          placeholder="Pesquisar Nota"
-          aria-label="Pesquisar Nota"
-        />
-        <button
-          type="button"
-          className="btn btn-primary rounded "
-          data-bs-toggle="modal"
-          data-bs-target="#newNoteModal"
-          onClick={() => {
-            setAnimateModal(animateModal == 0 ? 1 : 0);
-          }}
-        >
-          +
-        </button>
-      </form>
+
+      <SearchBar notes={notes} setSearchResults={setSearchResults} />
 
       <div className="notes mb-5">
-        {notes.map((dbrow: any) => (
-          <motion.div
-            className="note alert alert-light border border-dark-subtle m-auto mb-3"
-            key={dbrow.id}
-            id={`note${dbrow.id}`}
-            data-aos="zoom-in-up"
-            exit={{ x: -100, opacity: 0 }}
-          >
-            <div
-              className="heading d-flex justify-content-between mb-2"
-              style={{ alignItems: "center" }}
-            >
-              <h4>{dbrow.title}</h4>
-              <button
-                className="btn"
-                style={{ fontSize: 22 }}
-                onClick={(e) => handleDeleteNote(dbrow.id)}
-              >
-                X
-              </button>
-            </div>
-            <p>{dbrow.description}</p>
-            <span className="date w-100 d-flex justify-content-end px-4">
-              {dbrow.date.slice(0, 10).replace(new RegExp("-", "g"), "/")}
-            </span>
-          </motion.div>
+        {searchResults.map((note: any) => (
+          <Notes
+            setUpdateNotes={setUpdateNotes}
+            updateNotes={updateNotes}
+            note={note}
+            key={note.id}
+          />
         ))}
       </div>
+      
+      <Modal
+        setDescInput={setDescInput}
+        setTitleInput={setTitleInput}
+        handlePostNote={handlePostNote}
+        modalIdName={"newNoteModal"}
+      />
 
-      <div
-        className="modal fade"
-        id="newNoteModal"
-        aria-labelledby="newNoteModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="newNoteModalLabel">
-                Criar nova anotação
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <form>
-                <div className="mb-3">
-                  <label className="form-label">Titulo</label>
-                  <input
-                    type="email"
-                    className="form-control border border-dark-subtle"
-                    id="modalInputTitle1"
-                    aria-describedby="emailHelp"
-                    maxLength={40}
-                    onChange={(e) => {
-                      setTitleInput(e.target.value);
-                    }}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Descrição</label>
-                  <textarea
-                    className="form-control border border-dark-subtle"
-                    id="modalInputDesc1"
-                    rows={3}
-                    maxLength={450}
-                    onChange={(e) => {
-                      setDescInput(e.target.value);
-                    }}
-                  ></textarea>
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cancelar
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                data-bs-dismiss="modal"
-                onClick={handlePostNote}
-              >
-                Salvar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
       {/* <a
         href="https://www.flaticon.com/br/icones-gratis/pista"
         title="pista ícones"
