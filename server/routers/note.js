@@ -11,6 +11,7 @@ router.route("/").post((req, res) => {
   const filter = new Filter();
   const extraWords = require("../bad_words/bad_words.json");
   filter.addWords(...extraWords);
+  filter.removeWords("Descubra");
 
   db.insert(`'${filter.clean(title)}', '${filter.clean(desc)}', '${date}'`)
     .then((rows) => {

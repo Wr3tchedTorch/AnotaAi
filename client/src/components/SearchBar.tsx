@@ -3,23 +3,32 @@ import { useState } from "react";
 type SearchBarProps = {
   notes: any;
   setSearchResults: any;
+  indexOfFirstNote: any;
+  indexOfLastNote: any;
 };
 
-const SearchBar = ({ notes, setSearchResults }: SearchBarProps) => {
+const SearchBar = ({
+  notes,
+  setSearchResults,
+  indexOfFirstNote,
+  indexOfLastNote,
+}: SearchBarProps) => {
   const [animateModal, setAnimateModal] = useState(0);
 
   function handleSearchChange(e: any) {
-    if (!e.target.value) return setSearchResults(notes);
+    if (!e.target.value)
+      return setSearchResults(notes.slice(indexOfFirstNote, indexOfLastNote));
 
     const resultsArray = notes.filter((note: any) =>
-      note.title.includes(e.target.value)
+      note.title.toLowerCase().includes(e.target.value.toLowerCase())
     );
-    console.log(resultsArray);
-    setSearchResults(resultsArray);
+
+    console.log(resultsArray.slice(0, 5));
+    setSearchResults(resultsArray.slice(0, 5));
   }
 
   return (
-    <form className="d-flex w-75 m-auto mb-5" role="search">
+    <form className="d-flex w-75 m-auto mb-5" role="search" id="navbar">
       <input
         className="form-control me-2 rounded-pill border border-dark-subtle nosubmit"
         type="search"

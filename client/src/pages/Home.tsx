@@ -6,6 +6,7 @@ import { getNotes, postNote } from "../api/axios";
 import SearchBar from "../components/SearchBar";
 import Modal from "../components/Modal";
 import Notes from "../components/Notes";
+import Pagination from "../components/Pagination";
 
 // Aqui você pode organizar todas as suas anotações.
 
@@ -15,8 +16,19 @@ const Home = () => {
   const [updateNotes, setUpdateNotes] = useState(0);
   const [notes, setNotes] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [currentPage, setcurrentPage] = useState(1);
+  const [notesPerPage, setNotesPerPage] = useState(5);
 
   AOS.init();
+
+  const indexOfLastNote = currentPage * notesPerPage;
+  const indexOfFirstNote = indexOfLastNote - notesPerPage;
+
+  const paginate = (pageNumber: any, e: any) => {
+    e.preventDefault();
+    setcurrentPage(pageNumber);
+    setUpdateNotes(updateNotes + 1);
+  };
 
   useEffect(() => {
     getNotes()
@@ -25,7 +37,9 @@ const Home = () => {
         return json;
       })
       .then((json) => {
-        setSearchResults(json);
+        const currentNotes = json.slice(indexOfFirstNote, indexOfLastNote);
+        console.log(currentNotes);
+        setSearchResults(currentNotes);
       });
   }, [updateNotes]);
 
@@ -91,9 +105,12 @@ const Home = () => {
         ></motion.div>
       </div>
       <div className="second-section"></div>
-
-      <SearchBar notes={notes} setSearchResults={setSearchResults} />
-
+      <SearchBar
+        notes={notes}
+        setSearchResults={setSearchResults}
+        indexOfLastNote={indexOfLastNote}
+        indexOfFirstNote={indexOfFirstNote}
+      />
       <div className="notes mb-5">
         {searchResults.map((note: any) => (
           <Notes
@@ -104,14 +121,18 @@ const Home = () => {
           />
         ))}
       </div>
-      
       <Modal
         setDescInput={setDescInput}
         setTitleInput={setTitleInput}
         handlePostNote={handlePostNote}
         modalIdName={"newNoteModal"}
       />
-
+      <Pagination
+        notesPerPage={notesPerPage}
+        totalNotes={notes.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
       {/* <a
         href="https://www.flaticon.com/br/icones-gratis/pista"
         title="pista ícones"
