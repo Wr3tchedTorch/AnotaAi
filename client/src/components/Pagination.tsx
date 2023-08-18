@@ -28,12 +28,13 @@ const Pagination = ({
         ? Math.ceil(totalNotes / notesPerPage)
         : paginationNum;
   }
+  console.log("Pagination renderizado");
 
-  if (window.innerWidth > 1300) {
+  if (window.matchMedia("(min-width: 1300px)").matches) {
     resizePagination(22);
-  } else if (window.innerWidth > 875) {
+  } else if (window.matchMedia("(min-width: 875px)").matches) {
     resizePagination(15);
-  } else if (window.innerWidth > 670) {
+  } else if (window.matchMedia("(min-width: 670px)").matches) {
     resizePagination(10);
   } else {
     resizePagination(5);

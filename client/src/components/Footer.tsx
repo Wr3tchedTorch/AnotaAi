@@ -15,12 +15,12 @@ const Footer = () => {
           <a href="https://expressjs.com"> Node Express</a>. Todo o código
           utilizado nesse projeto está publicado no meu <a href="">Github</a>.
         </p>
-        <h6>Creditos:</h6>
+        <h6>Atribuições:</h6>
         <a
           href="https://www.flaticon.com/br/icones-gratis/pista"
           title="pista ícones"
         >
-          Icone do navegador criado por Freepik - Flaticon
+          O Icone da página no navegador foi criado por Freepik - Flaticon
         </a>
       </div>
       <ul className="redes-sociais" id="footer-ul">

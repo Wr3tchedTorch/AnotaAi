@@ -6,8 +6,8 @@ import { getNotes, postNote } from "../api/axios";
 import SearchBar from "../components/SearchBar";
 import Modal from "../components/Modal";
 import Notes from "../components/Notes";
-import Pagination from "../components/Pagination";
 import Footer from "../components/Footer";
+import RenderPagination from "../components/RenderPagination";
 
 // Aqui você pode organizar todas as suas anotações.
 
@@ -19,21 +19,13 @@ const Home = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setcurrentPage] = useState(1);
   const [notesPerPage, setNotesPerPage] = useState(5);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   AOS.init();
 
   const indexOfLastNote = currentPage * notesPerPage;
   const indexOfFirstNote = indexOfLastNote - notesPerPage;
 
-  let maxNavigatorPagesNum = 0;
-
-  useEffect(() => {
-    window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
-    return () => {
-      window.removeEventListener("resize", () => setWindowWidth(window.innerWidth));
-    };
-  }, []);
+  console.log("Home renderizado");
 
   const paginate = (pageNumber: any, e: any) => {
     e.preventDefault();
@@ -137,13 +129,12 @@ const Home = () => {
         handlePostNote={handlePostNote}
         modalIdName={"newNoteModal"}
       />
-      <Pagination
-        notesPerPage={notesPerPage}
+
+      <RenderPagination
         totalNotes={notes.length}
-        paginate={paginate}
         currentPage={currentPage}
-        maxNavigatorPagesNum={maxNavigatorPagesNum}
-        windowWidth={windowWidth}
+        notesPerPage={notesPerPage}
+        paginate={paginate}
       />
 
       <Footer />
