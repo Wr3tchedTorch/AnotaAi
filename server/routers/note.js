@@ -1,12 +1,18 @@
 const express = require("express");
-const router = express.Router();
 const Database = require("../database/mysql");
+const Filter = require("bad-words-br");
+const router = express.Router();
 
 const db = new Database("notes");
 
 router.route("/").post((req, res) => {
   const { title, desc, date } = req.body;
-  db.insert(`'${title}', '${desc}', '${date}'`)
+
+  const filter = new Filter();
+  const extraWords = require("../bad_words/bad_words.json");
+  filter.addWords(...extraWords);
+
+  db.insert(`'${filter.clean(title)}', '${filter.clean(desc)}', '${date}'`)
     .then((rows) => {
       res.send({ message: "Dados salvos com sucesso no banco de dados!" });
     })
