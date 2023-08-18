@@ -1,5 +1,4 @@
 import "../assets/home.css";
-// import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { getNotes, postNote } from "../api/axios";
@@ -19,9 +18,7 @@ const Home = () => {
   const [notes, setNotes] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setcurrentPage] = useState(1);
-  const [notesPerPage, setNotesPerPage] = useState(5);
-
-  AOS.init();
+const [notesPerPage, setNotesPerPage] = useState(5);  
 
   const indexOfLastNote = currentPage * notesPerPage;
   const indexOfFirstNote = indexOfLastNote - notesPerPage;

@@ -3,6 +3,7 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 const noteRouter = require("./routers/note");
+const path = require("path");
 
 app.use(
   cors({
@@ -11,6 +12,7 @@ app.use(
 );
 app.use(express.json());
 app.use("/note", noteRouter);
+app.use(express.static(path.join(__dirname + "/public")));
 
 app.get("/", (req, res) => {
   res.send({ Message: "Hello, World!" });
