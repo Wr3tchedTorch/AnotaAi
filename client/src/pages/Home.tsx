@@ -1,81 +1,56 @@
 import "../assets/home.css";
 import { TypeAnimation } from "react-type-animation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import axios, { AxiosResponse } from "axios";
+import { getNotes, postNote, deleteNote } from "../api/axios";
+import { toggleVisibility } from "../animation/visibility";
 
 // Aqui você pode organizar todas as suas anotações.
 
 const Home = () => {
   const [animateModal, setAnimateModal] = useState(0);
-  const [dbRows, setDbRows] = useState<any[]>([]);
   const [titleInput, setTitleInput] = useState("");
   const [descInput, setDescInput] = useState("");
   const [updateNotes, setUpdateNotes] = useState(0);
-
-  const toggleVisibility = (id: any, e: any) => {
-    const noteToDelete = document.getElementById(`note${id}`);
-    noteToDelete?.classList.add("isInvisible");
-    handleDeleteNote(id);
-  };
+  const [notes, setNotes] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
 
   AOS.init();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/note/all")
-      .then(function (response) {
-        // handle success
-        setDbRows(response.data.db);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-        console.log("erro");
-      })
-      .finally(function () {
-        // always executed
-      });
+    getNotes().then((json) => {
+      setNotes(json);
+    });
   }, [updateNotes]);
 
-  function postNote(e: any) {
-    e.preventDefault();
+  function handlePostNote(e: any) {
+    let descHTML = document.getElementById(
+      "modalInputDesc1"
+    ) as HTMLInputElement;
+    let titleHTML = document.getElementById(
+      "modalInputTitle1"
+    ) as HTMLInputElement;
+
+    descHTML.value = "";
+    titleHTML.value = "";
+
     let date = new Date();
     let currentDate = date.toISOString().split("T")[0];
-    axios
-      .post("http://localhost:3000/note", {
-        title: titleInput,
-        desc: descInput,
-        date: currentDate,
-      })
-      .then(function (response) {
-        // handle success
-        console.log(response);
-        setUpdateNotes(updateNotes + 1);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-        console.log("erro");
-      })
-      .finally(function () {
-        console.log(dbRows);
-        // always executed
-      });
+
+    postNote([
+      titleInput.replaceAll("'", "\\'"),
+      descInput.replaceAll("'", "\\'"),
+      currentDate,
+    ]);
+    setUpdateNotes(updateNotes + 1);
   }
 
   function handleDeleteNote(id: any) {
-    console.log("Id: " + id);
-
-    axios
-      .delete(`http://localhost:3000/note/${id}`)
-      .then((req) => {
-        console.log(req);
-        setUpdateNotes(updateNotes + 1);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    toggleVisibility(id);
+    setTimeout(() => {
+      deleteNote(id);
+      setUpdateNotes(updateNotes + 1);
+    }, 300);
   }
 
   return (
@@ -137,7 +112,7 @@ const Home = () => {
       </form>
 
       <div className="notes mb-5">
-        {dbRows.map((dbrow: any) => (
+        {notes.map((dbrow: any) => (
           <motion.div
             className="note alert alert-light border border-dark-subtle m-auto mb-3"
             key={dbrow.id}
@@ -153,7 +128,7 @@ const Home = () => {
               <button
                 className="btn"
                 style={{ fontSize: 22 }}
-                onClick={(e) => toggleVisibility(dbrow.id, e)}
+                onClick={(e) => handleDeleteNote(dbrow.id)}
               >
                 X
               </button>
@@ -192,7 +167,7 @@ const Home = () => {
                   <input
                     type="email"
                     className="form-control border border-dark-subtle"
-                    id="exampleInputEmail1"
+                    id="modalInputTitle1"
                     aria-describedby="emailHelp"
                     maxLength={40}
                     onChange={(e) => {
@@ -204,7 +179,7 @@ const Home = () => {
                   <label className="form-label">Descrição</label>
                   <textarea
                     className="form-control border border-dark-subtle"
-                    id="exampleFormControlTextarea1"
+                    id="modalInputDesc1"
                     rows={3}
                     maxLength={450}
                     onChange={(e) => {
@@ -226,7 +201,7 @@ const Home = () => {
                 type="button"
                 className="btn btn-primary"
                 data-bs-dismiss="modal"
-                onClick={postNote}
+                onClick={handlePostNote}
               >
                 Salvar
               </button>
@@ -234,6 +209,12 @@ const Home = () => {
           </div>
         </div>
       </div>
+      {/* <a
+        href="https://www.flaticon.com/br/icones-gratis/pista"
+        title="pista ícones"
+      >
+        Pista ícones criados por Freepik - Flaticon
+      </a> */}
     </motion.div>
   );
 };

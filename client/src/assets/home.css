@@ -19,9 +19,9 @@ input.nosubmit {
 }
 
 .note {
-  transition: 0.4s;
   max-width: 75%;
   height: auto;
+  transition: 0.4s all;
 }
 
 .note p {
