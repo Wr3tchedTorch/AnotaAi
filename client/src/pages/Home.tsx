@@ -42,7 +42,9 @@ const Home = () => {
       descInput.replaceAll("'", "\\'"),
       currentDate,
     ]);
-    setUpdateNotes(updateNotes + 1);
+    setTimeout(() => {
+      setUpdateNotes(updateNotes + 1);
+    }, 100);
   }
 
   function handleDeleteNote(id: any) {
