@@ -7,6 +7,7 @@ import SearchBar from "../components/SearchBar";
 import Modal from "../components/Modal";
 import Notes from "../components/Notes";
 import Pagination from "../components/Pagination";
+import Footer from "../components/Footer";
 
 // Aqui você pode organizar todas as suas anotações.
 
@@ -18,11 +19,21 @@ const Home = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setcurrentPage] = useState(1);
   const [notesPerPage, setNotesPerPage] = useState(5);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   AOS.init();
 
   const indexOfLastNote = currentPage * notesPerPage;
   const indexOfFirstNote = indexOfLastNote - notesPerPage;
+
+  let maxNavigatorPagesNum = 0;
+
+  useEffect(() => {
+    window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
+    return () => {
+      window.removeEventListener("resize", () => setWindowWidth(window.innerWidth));
+    };
+  }, []);
 
   const paginate = (pageNumber: any, e: any) => {
     e.preventDefault();
@@ -38,7 +49,6 @@ const Home = () => {
       })
       .then((json) => {
         const currentNotes = json.slice(indexOfFirstNote, indexOfLastNote);
-        console.log(currentNotes);
         setSearchResults(currentNotes);
       });
   }, [updateNotes]);
@@ -132,13 +142,11 @@ const Home = () => {
         totalNotes={notes.length}
         paginate={paginate}
         currentPage={currentPage}
+        maxNavigatorPagesNum={maxNavigatorPagesNum}
+        windowWidth={windowWidth}
       />
-      {/* <a
-        href="https://www.flaticon.com/br/icones-gratis/pista"
-        title="pista ícones"
-      >
-        Pista ícones criados por Freepik - Flaticon
-      </a> */}
+
+      <Footer />
     </motion.div>
   );
 };

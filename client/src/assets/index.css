@@ -4,6 +4,8 @@ body {
   overflow-x: hidden;
   scroll-behavior: smooth;
   background-color: #f3f6fb;
+  width: 70%;
+  margin: auto;
 }
 
 body,
@@ -37,14 +39,16 @@ body,
   width: 350px;
   height: 350px;
   transform: rotate(8deg);
-  background-image: url("Stuck at Home - To Do List.png");
+  background-image: url("undraw_team_up_re_84ok.svg");
   background-size: cover;
 }
 
-@media screen and (min-width: 1628px) {
+@media screen and (max-width: 1628px) {
   body {
-    width: 70%;
-    margin: auto;
+    width: 100%;
+  }
+  #footer {
+    width: 100% !important;
   }
 }
 
@@ -59,11 +63,23 @@ body,
     width: 300px;
     height: 300px;
   }
+
+  #footer {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 }
 
 @media screen and (min-width: 990px) {
   .navbar-collapse {
     display: flex;
     justify-content: end;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #footer-div, #footer-ul {
+    width: 100% !important;
+    margin-bottom: 60px;
   }
 }
