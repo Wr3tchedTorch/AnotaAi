@@ -1,9 +1,10 @@
 import axios from "axios";
 
-export const api = axios.create({ baseURL: "https://anotaai-3dm6.onrender.com/note" });
+export const api = axios.create({ baseURL: "http://localhost:10000/note" });
 
 export const getNotes = async () => {
   const response = await api.get("/all");
+  console.log(response);
   return response.data.db;
 };
 

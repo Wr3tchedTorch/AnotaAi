@@ -23,6 +23,9 @@ O problema principal desse site é o fato das notas serem anônimas, isso signif
 
 Requisitos:
 - Ter o gerenciador de pacotes <a href="https://www.npmjs.com">npm</a> instalado no seu computador
+- Ter Postgresql instalado na sua maquina, ou rodando em um servidor remoto
+
+#### Back-end
   
 Para executar o projeto basta abrir a pasta "Server" por um terminal, e executar os comandos:
 ```
@@ -33,15 +36,32 @@ npm run dev
 ```
 
 Se os comandos terminarem de rodar sem erros você vai observar um link no terminal escrito http://localhost:10000, depois basta abrir esse link em um navegador qualquer.
-Se algum erro aparecer é provavelmente porque a porta já está ocupada, nesse caso você precisará alterar a constante `PORT` no arquivo index.js
+Se algum erro aparecer é provavelmente porque a porta já está ocupada, nesse caso você precisará alterar a constante `PORT` no arquivo index.js.
+
+#### Front-end
+
+Na parte do front-end você precisará alterar o url base da biblioteca axios, acessando o diretório:
+```
+client->src->api->axios.tsx
+```
+Abra esse arquivo e mude o baseUrl para "http://localhost:10000/note", se seu projeto estiver sendo executado em outra porta você pode colocar ela no lugar da porta 10000 no url.
+
+#### Banco de dados
+
+Acesse o seguinte arquivo:
+```
+server->sequelize->config->config.js
+```
+e substitua ```process.env.DATABASE_URL``` com a url do seu banco de dados
+
 
 ### Como contribuir?
 
-Eu ficaria feliz em receber críticas construtivas sobre o meu código ou sobre o site, caso você tenha observado algum bug, imperfeição no design, ou alguma forma de otimizar o código, você pode entrar em contato comigo pelas seguintes redes sociais apresentadas no próximo topico
+Eu ficaria feliz em receber críticas construtivas sobre o meu código ou sobre o site, caso você tenha observado algum bug, imperfeição no design, ou alguma forma de otimizar o código, você pode entrar em contato comigo pelas redes sociais apresentadas no próximo topico
 
 ### Redes sociais
 
-- Instagram: https://www.instagram.com
+- Instagram: https://www.instagram.com/ericericeri_/
 - Linkedin: https://www.linkedin.com/in/eric-moura-368b4724b/
 
 ### Licença
