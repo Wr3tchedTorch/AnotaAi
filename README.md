@@ -37,11 +37,11 @@ Se algum erro aparecer é provavelmente porque a porta já está ocupada, nesse 
 
 ### Como contribuir?
 
-Eu ficaria feliz em receber críticas construtivas sobre o meu código ou sobre o site, caso você tenha observado algum bug, imperfeição no design, ou alguma forma de otimizar o código, você pode entrar em contato comigo pelas seguintes redes sociais apresentadas no próximo topico
+Eu ficaria feliz em receber críticas construtivas sobre o meu código ou sobre o site, caso você tenha observado algum bug, imperfeição no design, ou alguma forma de otimizar o código, você pode entrar em contato comigo pelas redes sociais apresentadas no próximo topico
 
 ### Redes sociais
 
-- Instagram: https://www.instagram.com
+- Instagram: https://www.instagram.com/ericericeri_/
 - Linkedin: https://www.linkedin.com/in/eric-moura-368b4724b/
 
 ### Licença
