@@ -1,11 +1,9 @@
 const express = require("express");
-const Database = require("../database/mysql");
 const Filter = require("bad-words-br");
 const router = express.Router();
+const { notes } = require("../sequelize/models");
 
-const db = new Database("notes");
-
-router.route("/").post((req, res) => {
+router.route("/").post(async (req, res) => {
   const { title, desc, date } = req.body;
 
   const filter = new Filter();
@@ -13,39 +11,26 @@ router.route("/").post((req, res) => {
   filter.addWords(...extraWords);
   filter.removeWords("Descubra");
 
-  db.insert(`'${filter.clean(title)}', '${filter.clean(desc)}', '${date}'`)
-    .then((rows) => {
-      res.send({ message: "Dados salvos com sucesso no banco de dados!" });
-    })
-    .catch((err) => {
-      throw err;
-    });
+  const creatingUser = await notes.create({
+    title: filter.clean(title),
+    description: filter.clean(desc),
+    date: date,
+  });
+
+  res.send("Id do usuário criado: " + creatingUser.id);
 });
 
 router
   .route("/:id")
-  .get((req, res) => {
-    const { id } = req.params;
-    const where = id == "all" ? "" : `id = ${id}`;
-    db.select(where)
-      .then((rows) => {
-        res.status(200).send({ db: rows });
-      })
-      .catch((err) => {
-        throw err;
-      });
+  .get(async (req, res) => {
+    const registeredNotes = await notes.findAll();
+    res.send({ db: registeredNotes });
   })
-  .delete((req, res) => {
+  .delete(async (req, res) => {
     const { id } = req.params;
-    db.delete(`id = ${id}`)
-      .then((rows) => {
-        res.send({
-          message: "Elemento deletado com sucesso do banco de dados!",
-          db: rows,
-        });
-      })
-      .catch((err) => {
-        throw err;
-      });
+
+    const count = await notes.destroy({ where: { id: id } });
+
+    res.send({ message: `Deleted row(s): ${count}` });
   });
 module.exports = router;

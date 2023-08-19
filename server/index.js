@@ -4,6 +4,18 @@ const app = express();
 const port = 3000;
 const noteRouter = require("./routers/note");
 const path = require("path");
+const { sequelize } = require("./sequelize/models/");
+
+const connectDb = async () => {
+  console.log("checking database connection");
+  try {
+    await sequelize.authenticate();
+    console.log("Database connection established.");
+  } catch (e) {
+    console.log("Database connection failed", e);
+    process.exit(1);
+  }
+};
 
 app.use(
   cors({
@@ -18,6 +30,10 @@ app.get("/", (req, res) => {
   res.send({ Message: "Hello, World!" });
 });
 
-app.listen(port, () =>
-  console.log(`Server running on http://localhost:${port}`)
-);
+(async () => {
+  await connectDb();
+
+  app.listen(port, () =>
+    console.log(`Server running on http://localhost:${port}`)
+  );
+})();

@@ -29,13 +29,13 @@ const Notes = ({ note, setUpdateNotes, updateNotes }: NotesProps) => {
           style={{ alignItems: "center" }}
         >
           <h4>{note.title}</h4>
-          <button
+          {/* <button
             className="btn"
             style={{ fontSize: 22 }}
             onClick={(e) => handleDeleteNote(note.id)}
           >
             X
-          </button>
+          </button> */}
         </div>
         <p>{note.description}</p>
         <span className="date w-100 d-flex justify-content-end px-4">

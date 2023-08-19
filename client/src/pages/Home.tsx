@@ -18,7 +18,7 @@ const Home = () => {
   const [notes, setNotes] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setcurrentPage] = useState(1);
-const [notesPerPage, setNotesPerPage] = useState(5);  
+  const [notesPerPage, setNotesPerPage] = useState(5);
 
   const indexOfLastNote = currentPage * notesPerPage;
   const indexOfFirstNote = indexOfLastNote - notesPerPage;
@@ -34,6 +34,7 @@ const [notesPerPage, setNotesPerPage] = useState(5);
   useEffect(() => {
     getNotes()
       .then((json) => {
+        console.log(json);
         setNotes(json);
         return json;
       })
