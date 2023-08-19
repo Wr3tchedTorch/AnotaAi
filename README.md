@@ -19,6 +19,8 @@ Ele possui algumas principais funcionalidades:
 - Ganhar experiência no desenvolvimento de websites
 - Fazer uma demonstração das minhas habilidades para uma possivel entrevista de emprego
 
+### Licença
+
 MIT License
 
 Copyright (c) 2023 Eric G. Moura

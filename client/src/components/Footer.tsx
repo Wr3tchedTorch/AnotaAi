@@ -13,7 +13,8 @@ const Footer = () => {
           expandir meu conhecimento em ferramentas como{" "}
           <a href="https://react.dev">ReactJS</a> e
           <a href="https://expressjs.com"> Node Express</a>. Todo o código
-          utilizado nesse projeto está publicado no meu <a href="">Github</a>.
+          utilizado nesse projeto está publicado no meu{" "}
+          <a href="https://github.com/Wr3tchedTorch/AnotaAi">Github</a>.
         </p>
         <h6>Atribuições:</h6>
         <a
@@ -30,10 +31,10 @@ const Footer = () => {
           <a href="https://www.instagram.com/ericericeri_/">Instagram</a>
         </li>
         <li>
-          <a href="https://github.com/Wr3tchedTorch?tab=repositories">Github</a>
+          <a href="https://github.com/Wr3tchedTorch/AnotaAi">Github</a>
         </li>
         <li>
-          <p>Linkedin</p>
+          <p style={{ textDecoration: "line-through" }}>Linkedin</p>
         </li>
       </ul>
     </footer>
