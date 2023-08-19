@@ -32,8 +32,8 @@ npm install
 npm run dev
 ```
 
-Se os comandos terminarem de rodar sem erros você vai observar um link no terminal escrito http://localhost:3000, depois basta abrir esse link em um navegador qualquer.
-Se algum erro aparecer é provavelmente porque a porta 3000 já está ocupada, nesse caso você precisará alterar a constante `PORT` no arquivo index.js
+Se os comandos terminarem de rodar sem erros você vai observar um link no terminal escrito http://localhost:10000, depois basta abrir esse link em um navegador qualquer.
+Se algum erro aparecer é provavelmente porque a porta já está ocupada, nesse caso você precisará alterar a constante `PORT` no arquivo index.js
 
 ### Como contribuir?
 
