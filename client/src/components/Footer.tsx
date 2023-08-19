@@ -34,7 +34,9 @@ const Footer = () => {
           <a href="https://github.com/Wr3tchedTorch/AnotaAi">Github</a>
         </li>
         <li>
-          <p style={{ textDecoration: "line-through" }}>Linkedin</p>
+          <a href="https://www.linkedin.com/in/eric-moura-368b4724b/">
+            Linkedin
+          </a>
         </li>
       </ul>
     </footer>

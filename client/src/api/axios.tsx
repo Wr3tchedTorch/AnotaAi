@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://anotaai-3dm6.onrender.com/note",
+  baseURL: "https://anotaai-3dm6.onrender.com/note",
 });
 
 export const getNotes = async () => {
@@ -20,7 +20,7 @@ export const postNote = async (data: any) => {
 };
 
 export const deleteNote = async (noteId: any) => {
-  console.log(noteId);
-  const response = await api.delete(`/${noteId}`);
-  return response;
-};
+    console.log(noteId);
+    const response = await api.delete(`/${noteId}`);
+    return response;
+}
