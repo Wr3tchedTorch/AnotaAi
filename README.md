@@ -11,7 +11,7 @@
 
 ### Porque desenvolvi esse site?
 
-O AnotaAI é um site onde os usuários podem deixar notas totalmente anônimas, ele foi desenvolvido por mim por motivos completamente didáticos, tendo em foco desenvolver minhas habilidades em ferramentas como ReactJS e Express, expandindo meu conhecimento na área de programação, adquirindo experiência em projetos fullstack, e, consequentemente, aumentando o valor do meu Portfólio para uma possivel entrevista de emprego.
+O AnotaAI é um site onde os usuários podem deixar notas totalmente anônimas, ele foi desenvolvido por motivos completamente didáticos, tendo em foco desenvolver minhas habilidades em ferramentas como ReactJS e Express, expandindo meu conhecimento na área de programação, adquirindo experiência em projetos fullstack, e, consequentemente, aumentando o valor do meu Portfólio para uma possivel entrevista de emprego.
 
 ### Qual o principal problema encontrado
 
