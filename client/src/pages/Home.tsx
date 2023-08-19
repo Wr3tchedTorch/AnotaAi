@@ -89,8 +89,9 @@ const Home = () => {
                   typewriter
                     .changeDelay(55)
                     .changeDeleteSpeed(55)
-                    .typeString("Aqui você pode organizar todas as <br />suas ")
-                    .typeString("anotações")
+                    .typeString(
+                      "Aqui você pode organizar todas as suas anotações"
+                    )
                     .pauseFor(1200)
                     .deleteChars(9)
                     .typeString("ideias")
