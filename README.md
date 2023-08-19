@@ -11,26 +11,27 @@
 
 ### Porque desenvolvi esse site?
 
-
 O AnotaAI é um site onde os usuários podem deixar notas totalmente anônimas, ele foi desenvolvido por mim por motivos completamente didáticos, tendo em foco desenvolver minhas habilidades em ferramentas como ReactJS e Express, expandindo meu conhecimento na área de programação, adquirindo experiência em projetos fullstack, e, consequentemente, aumentando o valor do meu Portfólio para uma possivel entrevista de emprego.
 
 ### Qual o principal problema encontrado
-
 
 O problema principal desse site é o fato das notas serem anônimas, isso significa que as pessoas podem digitar o que quiserem sem consequências, o que torna esse projeto também em um teste social, por conta disso o site utiliza um algoritmo para filtrar qualquer xingamento ou palavra inadequada automáticamente antes de salva-la no banco de dados.
 
 ### Como executar o projeto?
 
 Requisitos:
+
 - Ter o gerenciador de pacotes <a href="https://www.npmjs.com">npm</a> instalado no seu computador
 - Ter Postgresql instalado na sua maquina, ou rodando em um servidor remoto
 
 #### Back-end
-  
+
 Para executar o projeto basta abrir a pasta "Server" por um terminal, e executar os comandos:
+
 ```
 npm install
 ```
+
 ```
 npm run dev
 ```
@@ -41,19 +42,28 @@ Se algum erro aparecer é provavelmente porque a porta já está ocupada, nesse 
 #### Front-end
 
 Na parte do front-end você precisará alterar o url base da biblioteca axios, acessando o diretório:
+
 ```
 client->src->api->axios.tsx
 ```
+
 Abra esse arquivo e mude o baseUrl para "http://localhost:10000/note", se seu projeto estiver sendo executado em outra porta você pode colocar ela no lugar da porta 10000 no url.
+
+Feito isso rode o seguinte comando em um novo terminal:
+
+```
+npm run dev
+```
 
 #### Banco de dados
 
 Acesse o seguinte arquivo:
+
 ```
 server->sequelize->config->config.js
 ```
-e substitua ```process.env.DATABASE_URL``` com a url do seu banco de dados
 
+e substitua `process.env.DATABASE_URL` com a url do seu banco de dados
 
 ### Como contribuir?
 
