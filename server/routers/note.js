@@ -9,7 +9,8 @@ router.route("/").post(async (req, res) => {
   const filter = new Filter();
   const extraWords = require("../bad_words/bad_words.json");
   filter.addWords(...extraWords);
-  filter.removeWords("Descubra");
+  filter.removeWords("descubra");
+  filter.removeWords("coisas");
 
   const creatingUser = await notes.create({
     title: filter.clean(title),
